@@ -1,0 +1,15 @@
+FROM alpine:3.21.3 as builder
+WORKDIR /opt/minecraft-server/
+
+RUN curl -OJ https://meta.fabricmc.net/v2/versions/loader/1.21.4/0.16.10/1.0.1/server/jar
+RUN echo "eula=true" > eula.txt
+
+COPY ./configuration/server.properties /opt/minecraft-server/server.properties
+
+FROM alpine:3.21.3 as runner
+WORKDIR /opt/minecraft-server/
+
+COPY --from=builder /opt/minecraft-server/ /opt/minecraft-server/
+
+ENTRYPOINT ["java", "-jar", "fabric-server-mc.1.21.4-loader.0.16.10-launcher.1.0.1.jar", "nogui"]
+CMD ["-Xmx8G"]

@@ -1,0 +1,15 @@
+name: minecraft-server
+
+services:
+  application:
+    build:
+      context: ./../
+      dockerfile: ./docker/dockerfile
+    volumes:
+      - data:/opt/minecraft-server/
+    ports:
+      - 25565:25565
+
+volumes:
+  data:
+    name: minecraft-server-data
