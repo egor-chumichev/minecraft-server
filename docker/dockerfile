@@ -1,12 +1,13 @@
 FROM alpine:3.21.3 AS builder
 WORKDIR /opt/minecraft-server/
 
+RUN apk add --no-cache curl 
 RUN curl -OJ https://meta.fabricmc.net/v2/versions/loader/1.21.4/0.16.10/1.0.1/server/jar
 RUN echo "eula=true" > eula.txt
 
 COPY ./configuration/server.properties /opt/minecraft-server/server.properties
 
-FROM alpine:3.21.3 AS runner
+FROM openjdk:25 AS runner
 WORKDIR /opt/minecraft-server/
 
 COPY --from=builder /opt/minecraft-server/ /opt/minecraft-server/
