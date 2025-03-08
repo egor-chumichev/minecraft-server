@@ -13,3 +13,7 @@ services:
 volumes:
   data:
     name: minecraft-server-data
+
+networks:
+  default:
+    name: minecraft-server-network # can be changed to Traefik one in the future
