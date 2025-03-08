@@ -7,12 +7,18 @@ services:
       dockerfile: ./docker/dockerfile
     volumes:
       - data:/opt/minecraft-server/
+      - mods:/opt/minecraft-server/mods/
+      - world:/opt/minecraft-server/world/
     ports:
       - 25565:25565
 
 volumes:
   data:
     name: minecraft-server-data
+  mods:
+    name: minecraft-server-mods
+  world:
+    name: minecraft-server-world
 
 networks:
   default:
